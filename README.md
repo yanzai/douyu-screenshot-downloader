@@ -40,7 +40,7 @@ JDK 8 或更高版本
    - Win :
 
      ```bash
-     gradlew.bat clean run
+     .\gradlew.bat clean run
      ```
 
    - Liunx :
