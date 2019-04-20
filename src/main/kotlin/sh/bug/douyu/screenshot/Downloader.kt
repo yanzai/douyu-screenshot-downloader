@@ -54,7 +54,7 @@ object Downloader {
 
     /**
      * 根据直播缩略图网址 [thumbUrl] ，来下载 [roomId] 直播间的直播截图到归类好的目录下；
-     * 示例，直播间号 `12345` 在 2019年4月4日01:30 的截图放置路径： screenshots/12345/190404/190404_0130.png
+     * 示例，直播间号 `12345` 在 2019年4月4日01:30 的截图放置路径： screenshots/12345/1904/190404/190404_0130.png
      */
     fun downFromThumbUrl(roomId: String, thumbUrl: String) {
         val largeImgUrl = thumbUrl.removeSuffix("/dy1")
@@ -62,7 +62,7 @@ object Downloader {
             """((1[4-9])|([2-9][0-9]))\d{4}/$roomId[\d_]+\.((jpg)|(png)|(jpeg))""".toRegex().find(largeImgUrl)?.value
                 ?.replace("/$roomId", "")
                 ?: return err("斗鱼返回的缩略图网址规则可能已经改变：$thumbUrl")
-        val targetFile = File("./screenshots/$roomId/${fileName.substring(0, 6)}", fileName)
+        val targetFile = File("./screenshots/$roomId/${fileName.substring(0, 4)}/${fileName.substring(0, 6)}", fileName)
         if (targetFile.isFile && targetFile.length() > 0) {
             log("相同截图已存在，此次不再下载")
             return
