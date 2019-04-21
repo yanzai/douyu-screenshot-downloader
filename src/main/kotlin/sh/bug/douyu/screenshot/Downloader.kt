@@ -73,8 +73,10 @@ object Downloader {
         largeImgUrl.httpDownload().fileDestination { _, _ -> targetFile }
             .response { _, _, result ->
                 when (result) {
-                    is Result.Failure ->
+                    is Result.Failure -> {
                         err("请求下载图片出错，错误信息：${result.getException()}")
+                        targetFile.delete()
+                    }
                     is Result.Success ->
                         log("成功下载直播间<$roomId>的截图到 ${targetFile.path} ，从地址：$largeImgUrl")
                 }
